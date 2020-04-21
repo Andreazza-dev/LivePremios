@@ -57,7 +57,7 @@
                 <div class="container">
                     <div class="d-flex">
                         <a class="header-brand" href="{{route('home')}}">
-                            <img src="{{ asset('demo/brand/codigo-resgate.png')}}" class="header-brand-img" alt="tabler logo">
+                            <img src="{{ asset('assets/images/logo.png')}}" class="header-brand-img" alt="Codigo Resgate">
                         </a>
                         <div class="d-flex order-lg-2 ml-auto">
                             @guest
