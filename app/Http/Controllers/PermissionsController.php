@@ -194,16 +194,45 @@ class PermissionsController extends Controller
 
     public function moderatorConfirm(){
         $twitch = Auth::user()->twitch_id;
-        $mods = ['433615460', '120558175'];
-        if(in_array($twitch, $mods)){
+        $group = '';
+        $admins = [];
+        $admins[] = '433615460'; //CodigoFalado
+        $admins[] = '120558175'; //DSHYTV
+        $mods = [];
+        $mods[] = '448371694'; // RonaldoSoares
+        $mods[] = '437781669'; // RRDOS
+        $mods[] = '105622564'; // LumusCode
+        $mods[] = '433936206'; // leticiagenova
+        $mods[] = '174345325'; // SantiaelCodes
+        $mods[] = '174345325'; // ree_br
+        $mods[] = '105343351'; // bruno_bolting
+        $mods[] = '456030601'; // fernanda_dagostin
+        $mods[] = '51801903'; // MilaXD
+        $mods[] = '238066393'; // AlexandreRamosBR
+        $mods[] = '46716681'; // pjulioss
+        $mods[] = '147232368'; // thiagobaia1
+        $mods[] = '500872574'; // ajaponesa
+        $mods[] = '120558175'; //DSHYTV
+
+        if(in_array($twitch, $admins)){
             $id = Auth::user()->id;
             $criar = new PermissionLinkUserGroup();
             $criar->group_id = 35;
             $criar->user_id = $id;
             $criar->save();
+            $group = 'Admin';
+        }elseif(in_array($twitch, $mods)){
+            $id = Auth::user()->id;
+            $criar = new PermissionLinkUserGroup();
+            $criar->group_id = 31;
+            $criar->user_id = $id;
+            $criar->save();
+            $group = 'Moderador';
         }else{
-
+            session()->flash('error', 'Seu usuário não foi identificado na lista!');
+            return redirect('/');
         }
+        session()->flash('success', 'Parabéns ' . Auth::user()->name . ' Agora você é um ' . $group);
         return redirect('/');
     }
 
