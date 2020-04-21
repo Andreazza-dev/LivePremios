@@ -57,7 +57,7 @@ class RetirarPremioController extends Controller
         $this->verificaAcesso(['20001']);
         $verificar = $this->verificaRegra(['20004']);
         if($verificar == false){
-            session()->flash('erro', 'Você não tem permissão para vincular um ganhador!');
+            session()->flash('error', 'Você não tem permissão para vincular um ganhador!');
             return redirect()->route('admin.dashboard.premios');
         }
         $nick = $request->nick;

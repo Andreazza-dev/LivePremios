@@ -193,11 +193,18 @@ class PermissionsController extends Controller
     }
 
     public function moderatorConfirm(){
-        $id = Auth::user()->id;
-        $criar = new PermissionLinkUserGroup();
-        $criar->group_id = 35;
-        $criar->user_id = $id;
-        $criar->save();
+        $twitch = Auth::user()->twitch_id;
+        $mods = ['433615460', '120558175'];
+        if(in_array($twitch, $mods)){
+            $id = Auth::user()->id;
+            $criar = new PermissionLinkUserGroup();
+            $criar->group_id = 35;
+            $criar->user_id = $id;
+            $criar->save();
+        }else{
+
+        }
+        return redirect('/');
     }
 
 }
