@@ -54,6 +54,12 @@ class RetirarPremioController extends Controller
     }
 
     public function vicularPremioUser(request $request){
+        $this->verificaAcesso(['20001']);
+        $verificar = $this->verificaRegra(['20004']);
+        if($verificar == false){
+            session()->flash('error', 'Você não tem permissão para vincular um ganhador!');
+            return redirect()->route('admin.dashboard.premios');
+        }
         $nick = $request->nick;
         $nick = str_replace([
             'https://twitch.tv/',
@@ -101,19 +107,12 @@ class RetirarPremioController extends Controller
     }
 
     public function cadastrarCodigo(){
-        $disponivel = RetirarPremio::where('status', '=', '0')->count();
-        $resgatados = RetirarPremio::where('status', '=', '2')->count();
-        $pendente = RetirarPremio::where('status', '=', '1')->count();
-        $return = [
-            'disponivel' => $disponivel,
-            'resgatados' => $resgatados,
-            'pendentes' => $pendente,
-            'total' => ($disponivel + $resgatados + $pendente)
-        ];
-        return view('site.premios.cadastrar_codigo')->with(['contagem' => $return]);
+        $this->verificaAcesso(['20002']);
+        return view('site.premios.cadastrar_codigo');
     }
 
     public function storeCadastrarCodigo(Request $request){
+        $this->verificaAcesso(['20002']);
         $erros = [];
         $codigos = $request->array;
         foreach ($codigos as $key => $value) {
@@ -137,7 +136,20 @@ class RetirarPremioController extends Controller
         return redirect()->route('admin.dashboard.premios');
     }
 
+    public function viewCSVCadastrarCodigo(){
+        $this->verificaAcesso(['20002']);
+        return view('site.premios.cadastrar_codigo_csv');
+    }
+
+    public function storeCSVCadastrarCodigo(request $request){
+        $this->verificaAcesso(['20002']);
+        $codigos = str_replace([',', '', ' ', ';', "\r\n"], ',', $request->codigos);
+        $codigos = explode(',', $codigos);
+        return view('site.premios.cadastrar_codigo_csv')->with(['codigos' => $codigos]);
+    }
+
     public function dashboardPremios(){
+        $this->verificaAcesso(['20001']);
         $return = [];
         $dados = RetirarPremio::where('twitch_id_premiado', '<>', NULL)->where('status', '<>', '0')->orderBy('data_vinculada', 'desc')->get();
         foreach ($dados as $dado){
@@ -175,7 +187,16 @@ class RetirarPremioController extends Controller
                 ];
             }
         }
-        return view('site.premios.dashboard')->with(['dados' => $return]);
+        $disponivel = RetirarPremio::where('status', '=', '0')->count();
+        $resgatados = RetirarPremio::where('status', '=', '2')->count();
+        $pendente = RetirarPremio::where('status', '=', '1')->count();
+        $contagem = [
+            'disponivel' => $disponivel,
+            'resgatados' => $resgatados,
+            'pendentes' => $pendente,
+            'total' => ($disponivel + $resgatados + $pendente)
+        ];
+        return view('site.premios.dashboard')->with(['dados' => $return, 'contagem' => $contagem]);
     }
 
     public function verificarEmail(request $request){
