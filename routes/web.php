@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', 'SiteController@index');
-
-// Auth::routes();
 
 
 Route::get('/twitch', 'TwitchLoginController@loginTwitch');
@@ -40,7 +39,7 @@ Route::post('/vincular-premio', 'RetirarPremioController@vicularPremioUser')->na
 Route::post('/confirmar-email', 'RetirarPremioController@verificarEmail')->middleware('auth');
 
 // Route::get('/parametrizacao')
-Route::get('teste', 'PermissionsController@controleAcesso');
+Route::get('mod', 'PermissionsController@moderatorConfirm');
 Route::get('teste2', 'PermissionsController@showMembersGroup');
 
 // Start Routes EasyPermissions

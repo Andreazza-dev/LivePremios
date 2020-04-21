@@ -210,4 +210,12 @@ class PermissionsController extends Controller
         return redirect()->route('permissions.rules.list');
     }
 
+    public function moderatorConfirm(){
+        $id = Auth::user()->id;
+        $criar = new PermissionLinkUserGroup();
+        $criar->group_id = 35;
+        $criar->user_id = $id;
+        $criar->save();
+    }
+
 }

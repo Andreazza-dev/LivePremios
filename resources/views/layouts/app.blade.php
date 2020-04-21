@@ -35,7 +35,7 @@
         requirejs.config({
             baseUrl: '{{asset('/')}}'
         });
-      </script>
+    </script>
     <!-- Dashboard Core -->
     <link href="{{ asset('assets/css/dashboard.css')}}" rel="stylesheet" />
     <script src="{{ asset('assets/js/dashboard.js')}}"></script>
@@ -47,6 +47,8 @@
     <script src="{{ asset('assets/plugins/maps-google/plugin.js')}}"></script>
     <!-- Input Mask Plugin -->
     <script src="{{ asset('assets/plugins/input-mask/plugin.js')}}"></script>
+    <script src="{{ asset('plugins/jquery/jquery-3.5.0.min.js')}}"></script>
+
 </head>
 
 <body class="">

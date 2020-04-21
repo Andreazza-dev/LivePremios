@@ -32,6 +32,16 @@ class CreatePermissionLinkGroupRulesTable extends Migration
             'group_id' => 35,
             'rule_id' => 20002
         ]);
+
+        DB::table('permission_link_group_rules')->insert([
+            'group_id' => 35,
+            'rule_id' => 20003
+        ]);
+
+        DB::table('permission_link_group_rules')->insert([
+            'group_id' => 35,
+            'rule_id' => 20004
+        ]);
     }
 
     /**

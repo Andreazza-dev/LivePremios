@@ -88,7 +88,7 @@
 
 @section('scripts')
 <script>
-    $(document).ready(function () {
+$(document).ready(function () {
     var counter = 1;
     $("#addrow").on("click", function () {
         var newRow = $("<tr>");
