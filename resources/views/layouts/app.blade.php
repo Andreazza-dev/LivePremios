@@ -48,7 +48,6 @@
     <!-- Input Mask Plugin -->
     <script src="{{ asset('assets/plugins/input-mask/plugin.js')}}"></script>
     <script src="{{ asset('plugins/jquery/jquery-3.5.0.min.js')}}"></script>
-
 </head>
 
 <body class="">
@@ -58,7 +57,7 @@
                 <div class="container">
                     <div class="d-flex">
                         <a class="header-brand" href="{{route('home')}}">
-                            <img src="{{ asset('demo/brand/tabler.svg')}}" class="header-brand-img" alt="tabler logo">
+                            <img src="{{ asset('demo/brand/codigo-resgate.png')}}" class="header-brand-img" alt="tabler logo">
                         </a>
                         <div class="d-flex order-lg-2 ml-auto">
                             @guest

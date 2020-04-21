@@ -13,40 +13,15 @@ use Illuminate\Support\Facades\DB;
 class PermissionsController extends Controller
 {
     public function verificaRegraAcesso($regras = []){
-        $permissao = false;
-        $user = Auth::user()->id;
-        $regras_liberadas = [];
-        $regras_grupo = DB::select('select pr.id from users us,
-                                    permission_link_user_groups ug,
-                                    permission_link_group_rules gr,
-                                    permission_rules pr
-                            where ug.user_id = us.id
-                            and gr.group_id = ug.group_id
-                            and gr.rule_id = pr.id
-                            and us.id = :user', ['user' => $user]);
-        foreach($regras_grupo as $grupo){
-            $regras_liberadas[] = $grupo->id;
-        }
-
-        foreach($regras as $key){
-            if(in_array($key, $regras_liberadas)){
-                $permissao = true;
-            }
-        }
-        if($permissao == true){
-            return true;
-        }
-        return false;
+        return $this->verificaRegra($regras);
     }
 
-    public function controleAcesso($regra = []){
-        $acesso = $this->verificaRegraAcesso($regra);
-        // dd($acesso);
-        if(isset($acesso) and $acesso == true){
-            return true;
-        }
-        header('Location: /erro');
-        exit;
+    public function controleAcesso($regras = []){
+        return $this->verificaAcesso($regras);
+    }
+
+    public function erroAcess(){
+        return view('permissions.erro');
     }
 
     /**
@@ -54,11 +29,13 @@ class PermissionsController extends Controller
      */
 
     public function showGroups(){
+        $this->verificaAcesso(['20003']);
         $groups = PermissionGroup::orderBy('name', 'asc')->get();
         return view('permissions.groups_list')->with(['groups' => $groups]);
     }
 
     public function createGroup(){
+        $this->verificaAcesso(['20003']);
         return view('permissions.groups_create');
     }
 
@@ -75,6 +52,7 @@ class PermissionsController extends Controller
     }
 
     public function showMembersGroup($id){
+        $this->verificaAcesso(['20003']);
         $group_data = PermissionGroup::where('id', $id)->first();
         $membros = DB::select('
         select us.id id, us.name name from users as us, permission_link_user_groups as pg
@@ -97,6 +75,7 @@ class PermissionsController extends Controller
     }
 
     public function storeMemebersGroup(request $request, $id){
+        $this->verificaAcesso(['20003']);
         if(isset($request->ativos) and $request->ativos != null){
             foreach($request->ativos as $ativo => $value){
                 $verificar = PermissionLinkUserGroup::where('group_id', '=', $id)->where('user_id', '=', $value)->first();
@@ -130,6 +109,7 @@ class PermissionsController extends Controller
      *  VIEWS AND STORES FOR Rules
      */
     public function preShowMembersRules($id){
+        $this->verificaAcesso(['20003']);
         return view('permissions.rules_permissions_check_users_group');
     }
 
@@ -156,6 +136,7 @@ class PermissionsController extends Controller
     }
 
     public function showMembersRules(request $request, $id){
+        $this->controleAcesso(['20003']);
         $tipo = $request->tipo;
         if($request->tipo == 'individual'){
 
@@ -186,6 +167,7 @@ class PermissionsController extends Controller
     }
 
     public function storeMemeberRules(request $request, $id){
+        $this->controleAcesso(['20003']);
         if(isset($request->ativos) and $request->ativos != null){
             foreach($request->ativos as $ativo => $value){
                 $verificar = PermissionLinkGroupRules::where('rule_id', '=', $id)->where('group_id', '=', $value)->first();

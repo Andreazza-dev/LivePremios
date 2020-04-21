@@ -38,15 +38,15 @@ class CreatePermissionRulesTable extends Migration
 
         DB::table('permission_rules')->insert([
             'id' => 20003,
-            'name' => 'Acesso a Regras e Permissoes',
+            'name' => 'Acesso a Regras e Grupos',
             'description' => 'Permite atribuir regras permissoes a grupos e usuários.',
             'status' => 1
         ]);
 
         DB::table('permission_rules')->insert([
             'id' => 20004,
-            'name' => 'Cadastrar a Grupos e Regras',
-            'description' => 'Permite cadastrar novos grupos e regras.',
+            'name' => 'Vincular Ganhador',
+            'description' => 'Permite vincular novos ganhadores.',
             'status' => 1
         ]);
 

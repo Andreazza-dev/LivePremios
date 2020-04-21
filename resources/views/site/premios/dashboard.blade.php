@@ -2,6 +2,52 @@
 
 @section('content')
 <div class="container">
+    <div class="row">
+        <div class="col-6 col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-body p-3 text-center">
+                    <div class="text-right text-green">
+                        <i class="fe fe-chevron-up"></i>
+                    </div>
+                    <div class="h1 m-0">{{$contagem['total']}}</div>
+                    <div class="text-muted mb-4">Total de Códigos</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-body p-3 text-center">
+                    <div class="text-right text-green">
+                        <i class="fe fe-chevron-up"></i>
+                    </div>
+                    <div class="h1 m-0">{{$contagem['disponivel']}}</div>
+                    <div class="text-muted mb-4">Códigos Disponível</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-body p-3 text-center">
+                    <div class="text-right text-green">
+                        <i class="fe fe-chevron-up"></i>
+                    </div>
+                    <div class="h1 m-0">{{$contagem['resgatados']}}</div>
+                    <div class="text-muted mb-4">Códigos Resgatados</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-sm-6 col-lg-3">
+            <div class="card">
+                <div class="card-body p-3 text-center">
+                    <div class="text-right text-green">
+                        <i class="fe fe-chevron-up"></i>
+                    </div>
+                    <div class="h1 m-0">{{$contagem['pendentes']}}</div>
+                    <div class="text-muted mb-4">Códigos Pendentes</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-12">
         <button type="button" data-toggle="modal" data-target="#exampleModalCenter" class="btn btn-success pull-right mb-3">Vincular novo ganhador</button>
         <div class="card">

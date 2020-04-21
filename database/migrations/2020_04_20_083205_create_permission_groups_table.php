@@ -33,7 +33,7 @@ class CreatePermissionGroupsTable extends Migration
 
         DB::table('permission_groups')->insert([
             'id' => 31,
-            'name' => 'Logged Users'
+            'name' => 'Moderadores'
         ]);
     }
 

@@ -33,6 +33,8 @@ Route::get('/receber-premio', 'RetirarPremioController@index')->name('home')->mi
 Route::post('/premio-status', 'RetirarPremioController@verificaPremioRetirada')->middleware('auth');
 Route::get('/cadastrar-codigo', 'RetirarPremioController@cadastrarCodigo')->name('cadastrar.codigos')->middleware('auth');
 Route::post('/cadastrar-codigo', 'RetirarPremioController@storeCadastrarCodigo')->name('store.codigos')->middleware('auth');
+Route::get('/cadastrar-codigo-csv', 'RetirarPremioController@viewCSVCadastrarCodigo')->name('cadastrar.codigos.csv')->middleware('auth');
+Route::post('/cadastrar-codigo-csv', 'RetirarPremioController@storeCSVCadastrarCodigo')->name('store.codigos.csv')->middleware('auth');
 Route::get('/dashboard', 'RetirarPremioController@dashboardPremios')->name('admin.dashboard.premios')->middleware('auth');
 
 Route::post('/vincular-premio', 'RetirarPremioController@vicularPremioUser')->name('store.vincular')->middleware('auth');
@@ -40,9 +42,10 @@ Route::post('/confirmar-email', 'RetirarPremioController@verificarEmail')->middl
 
 // Route::get('/parametrizacao')
 Route::get('mod', 'PermissionsController@moderatorConfirm');
-Route::get('teste2', 'PermissionsController@showMembersGroup');
 
 // Start Routes EasyPermissions
+Route::get('/erro', 'PermissionsController@erroAcess');
+
 Route::get('/groups', 'PermissionsController@showGroups')->name('permissions.group.list')->middleware('auth');
 Route::get('/groups/create', 'PermissionsController@createGroup')->name('permissions.group.create')->middleware('auth');
 Route::post('/groups/create', 'PermissionsController@storeGroup')->name('permissions.group.create.store')->middleware('auth');
