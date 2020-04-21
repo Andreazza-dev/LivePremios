@@ -1,4 +1,8 @@
 <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
+    @php
+        use \App\Http\Controllers\PermissionsController;
+        $PAGE = new PermissionsController();
+    @endphp
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-3 ml-auto">
@@ -14,14 +18,18 @@
             <li class="nav-item">
             <a href="{{route('home')}}" class="nav-link"><i class="fe fe-home"></i> Resgatar Meus Premios</a>
             </li>
+            @if ($PAGE->verificaRegraAcesso(['20001']) == true )
             <li class="nav-item">
               <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-box"></i> Admin Menu</a>
               <div class="dropdown-menu dropdown-menu-arrow">
                 <a href="{{route('admin.dashboard.premios')}}" class="dropdown-item ">Dashboard</a>
+                @if ($PAGE->verificaRegraAcesso(['20002']) == true )
                 <a href="{{route('cadastrar.codigos')}}" class="dropdown-item ">Cadastrar Códigos</a>
+                @endif
                 {{-- <a href="./pricing-cards.html" class="dropdown-item ">Pricing cards</a> --}}
               </div>
             </li>
+            @endif
 
             {{-- <li class="nav-item dropdown">
               <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-calendar"></i> Components</a>

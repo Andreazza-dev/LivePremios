@@ -1,18 +1,19 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr">
-  <head>
+
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="Content-Language" content="en" />
     <meta name="msapplication-TileColor" content="#2d89ef">
     <meta name="theme-color" content="#4188c9">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
+    <link rel="icon" href="{{asset('favicon.ico')}}" type="image/x-icon" />
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
     <!-- Generated: 2018-04-16 09:29:05 +0200 -->
 
@@ -26,8 +27,15 @@
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
+
     <script src="{{ asset('assets/js/require.min.js')}}"></script>
+    <script>
+        requirejs.config({
+            baseUrl: '{{asset('/')}}'
+        });
+      </script>
     <!-- Dashboard Core -->
     <link href="{{ asset('assets/css/dashboard.css')}}" rel="stylesheet" />
     <script src="{{ asset('assets/js/dashboard.js')}}"></script>
@@ -39,28 +47,25 @@
     <script src="{{ asset('assets/plugins/maps-google/plugin.js')}}"></script>
     <!-- Input Mask Plugin -->
     <script src="{{ asset('assets/plugins/input-mask/plugin.js')}}"></script>
-    <script
-  src="https://code.jquery.com/jquery-3.5.0.min.js"
-  integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
-  crossorigin="anonymous"></script>
-  </head>
-  <body class="">
-    <div class="page">
-      <div class="page-main">
-        <div class="header py-4">
-          <div class="container">
-            <div class="d-flex">
-              <a class="header-brand" href="./index.html">
-                <img src="{{ asset('demo/brand/tabler.svg')}}" class="header-brand-img" alt="tabler logo">
-              </a>
-              <div class="d-flex order-lg-2 ml-auto">
-                @guest
-                <div class="nav-item d-none d-md-flex">
-                    <a href="/twitch" class="btn btn-twitch">Login With Twitch</a>
-                </div>
-                @endguest
+</head>
 
-                {{-- <div class="dropdown d-none d-md-flex">
+<body class="">
+    <div class="page">
+        <div class="page-main">
+            <div class="header py-4">
+                <div class="container">
+                    <div class="d-flex">
+                        <a class="header-brand" href="{{route('home')}}">
+                            <img src="{{ asset('demo/brand/tabler.svg')}}" class="header-brand-img" alt="tabler logo">
+                        </a>
+                        <div class="d-flex order-lg-2 ml-auto">
+                            @guest
+                            <div class="nav-item d-none d-md-flex">
+                                <a href="/twitch" class="btn btn-twitch">Login com Twitch</a>
+                            </div>
+                            @endguest
+
+                            {{-- <div class="dropdown d-none d-md-flex">
                   <a class="nav-link icon" data-toggle="dropdown">
                     <i class="fe fe-bell"></i>
                     <span class="nav-unread"></span>
@@ -91,165 +96,170 @@
                     <a href="#" class="dropdown-item text-center text-muted-dark">Mark all as read</a>
                   </div>
                 </div> --}}
-                @auth
-                <div class="dropdown">
-                    <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
-                      <span class="avatar" style="background-image: url('{{isset(Auth::user()->avatar) ? Auth::user()->avatar : asset('demo/faces/female/25.jpg')}}')"></span>
-                      <span class="ml-2 d-none d-lg-block">
-                          <span class="text-default">{{Auth::user()->name}}</span>
-                          <small class="text-muted d-block mt-1">Administrator</small>
-                      </span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                      <a class="dropdown-item" href="#">
-                        <i class="dropdown-icon fe fe-user"></i> Profile
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        <i class="dropdown-icon fe fe-settings"></i> Settings
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        <span class="float-right"><span class="badge badge-primary">6</span></span>
-                        <i class="dropdown-icon fe fe-mail"></i> Inbox
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        <i class="dropdown-icon fe fe-send"></i> Message
-                      </a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">
-                        <i class="dropdown-icon fe fe-help-circle"></i> Need help?
-                      </a>
-                      <a class="dropdown-item" href="{{ route('logout') }}"
-                      onclick="event.preventDefault();
+                            @auth
+                            <div class="dropdown">
+                                <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+                                    <span class="avatar"
+                                        style="background-image: url('{{isset(Auth::user()->avatar) ? Auth::user()->avatar : asset('demo/faces/female/25.jpg')}}')"></span>
+                                    <span class="ml-2 d-none d-lg-block">
+                                        <span class="text-default">{{Auth::user()->name}}</span>
+                                        <small class="text-muted d-block mt-1">Administrator</small>
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                    <a class="dropdown-item" href="#">
+                                        <i class="dropdown-icon fe fe-user"></i> Profile
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="dropdown-icon fe fe-settings"></i> Settings
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <span class="float-right"><span class="badge badge-primary">6</span></span>
+                                        <i class="dropdown-icon fe fe-mail"></i> Inbox
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="dropdown-icon fe fe-send"></i> Message
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="dropdown-icon fe fe-help-circle"></i> Need help?
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                        <i class="dropdown-icon fe fe-log-out"></i> Sair
-                      </a>
-                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                          @csrf
-                      </form>
+                                        <i class="dropdown-icon fe fe-log-out"></i> Sair
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </div>
+                            @endauth
+
+                        </div>
+                        <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse"
+                            data-target="#headerMenuCollapse">
+                            <span class="header-toggler-icon"></span>
+                        </a>
                     </div>
-                  </div>
-                @endauth
-
-              </div>
-              <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
-                <span class="header-toggler-icon"></span>
-              </a>
+                </div>
             </div>
-          </div>
-        </div>
-        @auth
+            @auth
             @include('layouts.menus')
-        @endauth
+            @endauth
 
-        @if ($message = Session::get('success'))
-        <div class="alert alert-icon alert-success" role="alert">
+            @if ($message = Session::get('success'))
+            <div class="alert alert-icon alert-success" role="alert">
+                <div class="container">
+                    <button type="button" class="close" data-dismiss="alert"></button>
+                    <i class="fe fe-check mr-2" aria-hidden="true"></i>
+                    {{ $message }}
+                </div>
+
+            </div>
+            @endif
+
+
+            @if ($message = Session::get('error'))
+            <div class="alert alert-icon alert-danger" role="alert">
+                <div class="container">
+                    <button type="button" class="close" data-dismiss="alert"></button>
+                    <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i>
+                    {{ $message }}
+                </div>
+            </div>
+            @endif
+
+
+            @if ($message = Session::get('warning'))
+            <div class="alert alert-warning alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+            </div>
+            @endif
+
+
+            @if ($message = Session::get('info'))
+            <div class="alert alert-info alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+            </div>
+            @endif
+
+
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                Please check the form below for errors
+            </div>
+            @endif
+            <div class="my-3 my-md-5">
+                @yield('content')
+            </div>
+        </div>
+        <div class="footer">
             <div class="container">
-                <button type="button" class="close" data-dismiss="alert"></button>
-                <i class="fe fe-check mr-2" aria-hidden="true"></i>
-                {{ $message }}
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-6 col-md-3">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#">First link</a></li>
+                                    <li><a href="#">Second link</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#">Third link</a></li>
+                                    <li><a href="#">Fourth link</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#">Fifth link</a></li>
+                                    <li><a href="#">Sixth link</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#">Other link</a></li>
+                                    <li><a href="#">Last link</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mt-4 mt-lg-0">
+                        Premium and Open Source dashboard template with responsive and high quality UI. For Free!
+                    </div>
+                </div>
             </div>
-
-          </div>
-        @endif
-
-
-        @if ($message = Session::get('error'))
-        <div class="alert alert-icon alert-danger" role="alert">
+        </div>
+        <footer class="footer">
             <div class="container">
-                <button type="button" class="close" data-dismiss="alert"></button>
-                <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i>
-                {{ $message }}
+                <div class="row align-items-center flex-row-reverse">
+                    <div class="col-auto ml-lg-auto">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <ul class="list-inline list-inline-dots mb-0">
+                                    <li class="list-inline-item"><a href="./docs/index.html">Documentation</a></li>
+                                    <li class="list-inline-item"><a href="./faq.html">FAQ</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-auto">
+                                <a href="https://github.com/tabler/tabler" class="btn btn-outline-primary btn-sm">Source
+                                    code</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
+                        Copyright © 2018 <a href=".">Tabler</a>. Theme by <a href="https://codecalm.net"
+                            target="_blank">codecalm.net</a> All rights reserved.
+                    </div>
+                </div>
             </div>
-        </div>
-        @endif
-
-
-        @if ($message = Session::get('warning'))
-        <div class="alert alert-warning alert-block">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>{{ $message }}</strong>
-        </div>
-        @endif
-
-
-        @if ($message = Session::get('info'))
-        <div class="alert alert-info alert-block">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>{{ $message }}</strong>
-        </div>
-        @endif
-
-
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            Please check the form below for errors
-        </div>
-        @endif
-        <div class="my-3 my-md-5">
-            @yield('content')
-        </div>
-      </div>
-      <div class="footer">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8">
-              <div class="row">
-                <div class="col-6 col-md-3">
-                  <ul class="list-unstyled mb-0">
-                    <li><a href="#">First link</a></li>
-                    <li><a href="#">Second link</a></li>
-                  </ul>
-                </div>
-                <div class="col-6 col-md-3">
-                  <ul class="list-unstyled mb-0">
-                    <li><a href="#">Third link</a></li>
-                    <li><a href="#">Fourth link</a></li>
-                  </ul>
-                </div>
-                <div class="col-6 col-md-3">
-                  <ul class="list-unstyled mb-0">
-                    <li><a href="#">Fifth link</a></li>
-                    <li><a href="#">Sixth link</a></li>
-                  </ul>
-                </div>
-                <div class="col-6 col-md-3">
-                  <ul class="list-unstyled mb-0">
-                    <li><a href="#">Other link</a></li>
-                    <li><a href="#">Last link</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4 mt-4 mt-lg-0">
-              Premium and Open Source dashboard template with responsive and high quality UI. For Free!
-            </div>
-          </div>
-        </div>
-      </div>
-      <footer class="footer">
-        <div class="container">
-          <div class="row align-items-center flex-row-reverse">
-            <div class="col-auto ml-lg-auto">
-              <div class="row align-items-center">
-                <div class="col-auto">
-                  <ul class="list-inline list-inline-dots mb-0">
-                    <li class="list-inline-item"><a href="./docs/index.html">Documentation</a></li>
-                    <li class="list-inline-item"><a href="./faq.html">FAQ</a></li>
-                  </ul>
-                </div>
-                <div class="col-auto">
-                  <a href="https://github.com/tabler/tabler" class="btn btn-outline-primary btn-sm">Source code</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
-              Copyright © 2018 <a href=".">Tabler</a>. Theme by <a href="https://codecalm.net" target="_blank">codecalm.net</a> All rights reserved.
-            </div>
-          </div>
-        </div>
-      </footer>
+        </footer>
     </div>
     @yield('scripts')
-  </body>
+</body>
+
 </html>
